@@ -6,7 +6,7 @@ name: Build and Deploy v-scroll Component
 
 on:
   push:
-    branches: ['master']
+    branches: ['main']
     tags: ['v*']
 
 env:
