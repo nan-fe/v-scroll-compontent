@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-scroll component demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        background: #ffffff;
+        color: #000000;
+      }
+
+      :root {
+        --visible-items: 16;
+        --item-height: 36px;
+      }
+
+      #app {
+        inline-size: min(300px, calc(100vw - 32px));
+        block-size: calc(var(--visible-items) * var(--item-height));
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      .layout {
+        display: grid;
+        gap: 12px;
+      }
+
+      .theme-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+
+      .theme-toggle {
+        border: 1px solid #c7c9d1;
+        background: #ffffff;
+        color: #111111;
+        padding: 6px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+      }
+
+      .theme-toggle:hover {
+        background: #f3f4f6;
+      }
+
+      .panel {
+        inline-size: 100%;
+        block-size: 100%;
+        border: 1px solid #d8d8d8;
+        border-radius: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: #ffffff;
+        transition: border-color 200ms ease, background-color 200ms ease;
+      }
+
+      .content {
+        padding: 0 20px 0 0;
+      }
+
+      .row {
+        margin: 0;
+        block-size: var(--item-height);
+        line-height: var(--item-height);
+        font-size: initial;
+        font-weight: 700;
+        inline-size: max-content;
+      }
+      /* 备注：这一块样式主要是为了测试主题切换效果，特地在 index.html 中进行定义的 */
+
+      v-scroll {
+        transition: background-color 200ms ease;
+      }
+
+      #app[data-theme='dark'] .panel {
+        border-color: #2f3a4d;
+        background: #141922;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      #app[data-theme='dark'] v-scroll {
+        background: #111722;
+        --v-scroll-width: 14px;
+        --v-scroll-edge-gap: 3px;
+        --v-scroll-track-bg: #1f2a3d;
+        --v-scroll-thumb-bg: #4f6b97;
+        --v-scroll-thumb-bg-hover: #6383b8;
+        --v-scroll-thumb-bg-drag: #79a0de;
+      }
+
+      #app[data-theme='dark'] .content {
+        background: linear-gradient(180deg, #131b2a 0%, #101623 100%);
+      }
+
+      #app[data-theme='dark'] .row {
+        color: #d7e0f2;
+        border-bottom: 1px solid #223048;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <div class="theme-toolbar">
+        <span id="themeLabel">当前主题: Light</span>
+        <button id="themeToggleBtn" class="theme-toggle" type="button">切换到 Dark 主题</button>
+      </div>
+      <div id="app">
+        <main class="panel">
+          <v-scroll>
+            <div class="content">
+          <h1 class="row">Welcome to vibe 0</h1>
+          <h1 class="row">Welcome to vibe 1</h1>
+          <h1 class="row">Welcome to vibe 2</h1>
+          <h1 class="row">Welcome to vibe 3</h1>
+          <h1 class="row">Welcome to vibe 4</h1>
+          <h1 class="row">Welcome to vibe 5</h1>
+          <h1 class="row">Welcome to vibe 6</h1>
+          <h1 class="row">Welcome to vibe 7</h1>
+          <h1 class="row">Welcome to vibe 8</h1>
+          <h1 class="row">Welcome to vibe 9</h1>
+          <h1 class="row">Welcome to vibe 10</h1>
+          <h1 class="row">Welcome to vibe 11</h1>
+          <h1 class="row">Welcome to vibe 12</h1>
+          <h1 class="row">Welcome to vibe 13</h1>
+          <h1 class="row">Welcome to vibe 14</h1>
+          <h1 class="row">Welcome to vibe 15</h1>
+          <h1 class="row">Welcome to vibe 16</h1>
+          <h1 class="row">Welcome to vibe 17</h1>
+          <h1 class="row">Welcome to vibe 18</h1>
+          <h1 class="row">Welcome to vibe 19</h1>
+          <h1 class="row">Welcome to vibe 20</h1>
+          <h1 class="row">Welcome to vibe 21</h1>
+          <h1 class="row">Welcome to vibe 22</h1>
+          <h1 class="row">Welcome to vibe 23</h1>
+          <h1 class="row">Welcome to vibe 24</h1>
+          <h1 class="row">Welcome to vibe 25</h1>
+          <h1 class="row">Welcome to vibe 26</h1>
+          <h1 class="row">Welcome to vibe 27</h1>
+          <h1 class="row">Welcome to vibe 28</h1>
+          <h1 class="row">Welcome to vibe 29</h1>
+          <h1 class="row">Welcome to vibe 30</h1>
+          <h1 class="row">Welcome to vibe 31</h1>
+          <h1 class="row">Welcome to vibe 32</h1>
+          <h1 class="row">Welcome to vibe 33</h1>
+          <h1 class="row">Welcome to vibe 34</h1>
+          <h1 class="row">Welcome to vibe 35</h1>
+          <h1 class="row">Welcome to vibe 36</h1>
+          <h1 class="row">Welcome to vibe 37</h1>
+          <h1 class="row">Welcome to vibe 38</h1>
+          <h1 class="row">Welcome to vibe 39</h1>
+          <h1 class="row">Welcome to vibe 40</h1>
+          <h1 class="row">Welcome to vibe 41</h1>
+          <h1 class="row">Welcome to vibe 42</h1>
+          <h1 class="row">Welcome to vibe 43</h1>
+          <h1 class="row">Welcome to vibe 44</h1>
+          <h1 class="row">Welcome to vibe 45</h1>
+          <h1 class="row">Welcome to vibe 46</h1>
+          <h1 class="row">Welcome to vibe 47</h1>
+          <h1 class="row">Welcome to vibe 48</h1>
+          <h1 class="row">Welcome to vibe 49</h1>
+          <h1 class="row">Welcome to vibe 50</h1>
+          <h1 class="row">Welcome to vibe 51</h1>
+          <h1 class="row">Welcome to vibe 52</h1>
+          <h1 class="row">Welcome to vibe 53</h1>
+          <h1 class="row">Welcome to vibe 54</h1>
+          <h1 class="row">Welcome to vibe 55</h1>
+          <h1 class="row">Welcome to vibe 56</h1>
+          <h1 class="row">Welcome to vibe 57</h1>
+          <h1 class="row">Welcome to vibe 58</h1>
+          <h1 class="row">Welcome to vibe 59</h1>
+          <h1 class="row">Welcome to vibe 60</h1>
+          <h1 class="row">Welcome to vibe 61</h1>
+          <h1 class="row">Welcome to vibe 62</h1>
+          <h1 class="row">Welcome to vibe 63</h1>
+          <h1 class="row">Welcome to vibe 64</h1>
+          <h1 class="row">Welcome to vibe 65</h1>
+          <h1 class="row">Welcome to vibe 66</h1>
+          <h1 class="row">Welcome to vibe 67</h1>
+          <h1 class="row">Welcome to vibe 68</h1>
+          <h1 class="row">Welcome to vibe 69</h1>
+          <h1 class="row">Welcome to vibe 70</h1>
+          <h1 class="row">Welcome to vibe 71</h1>
+          <h1 class="row">Welcome to vibe 72</h1>
+          <h1 class="row">Welcome to vibe 73</h1>
+          <h1 class="row">Welcome to vibe 74</h1>
+          <h1 class="row">Welcome to vibe 75</h1>
+          <h1 class="row">Welcome to vibe 76</h1>
+          <h1 class="row">Welcome to vibe 77</h1>
+          <h1 class="row">Welcome to vibe 78</h1>
+          <h1 class="row">Welcome to vibe 79</h1>
+          <h1 class="row">Welcome to vibe 80</h1>
+          <h1 class="row">Welcome to vibe 81</h1>
+          <h1 class="row">Welcome to vibe 82</h1>
+          <h1 class="row">Welcome to vibe 83</h1>
+          <h1 class="row">Welcome to vibe 84</h1>
+          <h1 class="row">Welcome to vibe 85</h1>
+          <h1 class="row">Welcome to vibe 86</h1>
+          <h1 class="row">Welcome to vibe 87</h1>
+          <h1 class="row">Welcome to vibe 88</h1>
+          <h1 class="row">Welcome to vibe 89</h1>
+          <h1 class="row">Welcome to vibe 90</h1>
+          <h1 class="row">Welcome to vibe 91</h1>
+          <h1 class="row">Welcome to vibe 92</h1>
+            </div>
+          </v-scroll>
+        </main>
+      </div>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "$/v-scroll.js": "./.theme/@v-scroll.js"
+        }
+      }
+    </script>
+    <script type="module" src="./v-scroll.js"></script>
+    <script>
+      /* 备注：这一块代码主要是为了测试主题切换效果，特地在 index.html 中进行定义的 */
+      const themes = ['light', 'dark'];
+      const app = document.getElementById('app');
+      const themeLabel = document.getElementById('themeLabel');
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      let currentThemeIndex = 0;
+
+      const applyTheme = (theme) => {
+        app.setAttribute('data-theme', theme);
+        const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+        themeLabel.textContent = `当前主题: ${theme === 'dark' ? 'Dark' : 'Light'}`;
+        themeToggleBtn.textContent = `切换到 ${nextTheme === 'dark' ? 'Dark' : 'Light'} 主题`;
+      };
+
+      themeToggleBtn.addEventListener('click', () => {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        applyTheme(themes[currentThemeIndex]);
+      });
+
+      applyTheme(themes[currentThemeIndex]);
+    </script>
+  </body>
+</html>

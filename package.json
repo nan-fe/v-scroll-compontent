@@ -1,0 +1,19 @@
+{
+  "name": "v-scroll-compontent",
+  "version": "1.0.0",
+  "author": "nan-fe",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "clean-css": "^5.3.3",
+    "postcss": "^8.5.6",
+    "postcss-nesting": "^13.0.2",
+    "vite": "^7.1.5"
+  },
+  "dependencies": {
+    "git": "^0.1.5"
+  }
+}

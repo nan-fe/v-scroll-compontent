@@ -1,0 +1,8 @@
+# 服务器上与本仓库同路径部署时使用：workflow SSH 后 git pull + docker compose pull/up
+# 镜像由 CI 构建推送；本地调试可注释 image 改用 build: .
+services:
+  web:
+    image: crpi-qeygpng4u8e2ezh6.cn-shanghai.personal.cr.aliyuncs.com/nan-fe/v-scroll-compontent:latest
+    ports:
+      - '80:80'
+    restart: unless-stopped
