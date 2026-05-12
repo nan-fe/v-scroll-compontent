@@ -1,8 +1,11 @@
 # 服务器上与本仓库同路径部署时使用：workflow SSH 后 git pull + docker compose pull/up
 # 镜像由 CI 构建推送；本地调试可注释 image 改用 build: .
+# 对外 4000（阿里云安全组需放行 TCP 4000）；容器内 Nginx 必须 listen 80，与 Dockerfile 一致
+# pull_policy: 每次 up 向仓库校验 latest，避免本机缓存旧 digest 导致「以为已 pull」
 services:
   web:
     image: crpi-qeygpng4u8e2ezh6.cn-shanghai.personal.cr.aliyuncs.com/nan-fe/v-scroll-compontent:latest
+    pull_policy: always
     ports:
-      - '80:80'
+      - '4000:80'
     restart: unless-stopped
