@@ -16,7 +16,6 @@ const cssModulePlugin = (plugin_options = {}) => {
     OPTIONS = { ...DEFAULT_OPTIONS, ...plugin_options };
   return {
     name: 'v-scroll-css-module-builder',
-    apply: 'build',
     configResolved: async (resolved_config) => {
       const ROOT = resolved_config.root,
         SOURCE_CSS_PATH = toAbsPath(ROOT, OPTIONS.source_css_path),

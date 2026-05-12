@@ -54,7 +54,7 @@
   box-shadow:
     inset 1px 0 0 #ececec,
     inset -1px 0 0 #ececec;
-  opacity: 1;
+  opacity: 0;
   pointer-events: none;
   z-index: 0;
   transition: opacity 150ms ease;
@@ -62,10 +62,13 @@
   &[data-active='false'] {
     opacity: 0;
   }
+}
 
-  &[data-active='true'] {
-    opacity: 1;
-  }
+/* 轨道背景：右侧 gutter、悬停滑块、拖拽时显示（over-thumb：滑块与 scroll 为兄弟，需单独标记） */
+:host([over-scrollbar]) [part~='track'][data-active='true'],
+:host([over-thumb]) [part~='track'][data-active='true'],
+:host([dragging]) [part~='track'][data-active='true'] {
+  opacity: 1;
 }
 
 [part~='bar'] {

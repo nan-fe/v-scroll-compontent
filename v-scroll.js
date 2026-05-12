@@ -306,6 +306,16 @@ const handleViewportPointerLeave = (ctx) => {
   ctx.host.removeAttribute('over-scrollbar');
 };
 
+/** 滑块与滚动区域为兄弟节点，悬停在滑块上时 scroll 收不到 pointermove；用该标记与 over-scrollbar 一起控制轨道背景 */
+const handleBarPointerEnter = (ctx) => {
+  ctx.host.setAttribute('over-thumb', '');
+};
+
+const handleBarPointerLeave = (ctx) => {
+  if (ctx.state.dragging) return;
+  ctx.host.removeAttribute('over-thumb');
+};
+
 const handleSlotChange = (ctx) => {
   if (ctx.refs.content) ctx.resize_observer.unobserve(ctx.refs.content);
   const ASSIGNED = ctx.slot.assignedElements({ flatten: true });
@@ -320,12 +330,14 @@ const destroy = (ctx) => {
   if (!ctx.mounted) return;
   ctx.mounted = false;
   const { scroll, bar } = ctx.refs;
-  const { onScroll, onViewportWheel, onViewportPointerMove, onViewportPointerLeave, onPointerDown, onSlotChange } = ctx.handlers;
+  const { onScroll, onViewportWheel, onViewportPointerMove, onViewportPointerLeave, onPointerDown, onBarPointerEnter, onBarPointerLeave, onSlotChange } = ctx.handlers;
   scroll.removeEventListener('scroll', onScroll);
   scroll.removeEventListener('wheel', onViewportWheel);
   scroll.removeEventListener('pointermove', onViewportPointerMove);
   scroll.removeEventListener('pointerleave', onViewportPointerLeave);
   bar.removeEventListener('pointerdown', onPointerDown);
+  bar.removeEventListener('pointerenter', onBarPointerEnter);
+  bar.removeEventListener('pointerleave', onBarPointerLeave);
   ctx.slot?.removeEventListener('slotchange', onSlotChange);
   if (ctx.refs.content) ctx.resize_observer.unobserve(ctx.refs.content);
   removeDragListeners(ctx);
@@ -339,6 +351,7 @@ const destroy = (ctx) => {
   clearWheelIndicator(ctx);
   ctx.host.removeAttribute('in-gutter');
   ctx.host.removeAttribute('over-scrollbar');
+  ctx.host.removeAttribute('over-thumb');
 };
 
 const onConnected = (host) => {
@@ -352,6 +365,8 @@ const onConnected = (host) => {
   scroll.addEventListener('pointermove', CTX.handlers.onViewportPointerMove, { passive: true });
   scroll.addEventListener('pointerleave', CTX.handlers.onViewportPointerLeave, { passive: true });
   bar.addEventListener('pointerdown', CTX.handlers.onPointerDown);
+  bar.addEventListener('pointerenter', CTX.handlers.onBarPointerEnter);
+  bar.addEventListener('pointerleave', CTX.handlers.onBarPointerLeave);
   CTX.slot.addEventListener('slotchange', CTX.handlers.onSlotChange);
   CTX.resize_observer.observe(scroll);
   handleSlotChange(CTX);
@@ -377,6 +392,8 @@ const createVScrollElement = () => {
       onViewportWheel: (event) => handleViewportWheel(CTX, event),
       onViewportPointerMove: (event) => handleViewportPointerMove(CTX, event),
       onViewportPointerLeave: () => handleViewportPointerLeave(CTX),
+      onBarPointerEnter: () => handleBarPointerEnter(CTX),
+      onBarPointerLeave: () => handleBarPointerLeave(CTX),
       onSlotChange: () => handleSlotChange(CTX)
     };
     CTX.resize_observer = new ResizeObserver(() => queueRefresh(CTX));
